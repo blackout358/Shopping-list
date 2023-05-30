@@ -11,7 +11,6 @@
 		E7108D582A17D8A000C713A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7108D572A17D8A000C713A5 /* ContentView.swift */; };
 		E7108D5A2A17D8A200C713A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7108D592A17D8A200C713A5 /* Assets.xcassets */; };
 		E7108D5D2A17D8A200C713A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7108D5C2A17D8A200C713A5 /* Preview Assets.xcassets */; };
-		E77BD3A52A2419290065480A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E77BD3A32A2419280065480A /* Model.xcdatamodeld */; };
 		E77BD3A72A2421590065480A /* itemsData.json in Resources */ = {isa = PBXBuildFile; fileRef = E77BD3A62A2421580065480A /* itemsData.json */; };
 		E7FFB5A32A23A2D3002F992E /* modelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FFB5A22A23A2D3002F992E /* modelData.swift */; };
 /* End PBXBuildFile section */
@@ -22,7 +21,6 @@
 		E7108D572A17D8A000C713A5 /* ContentView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		E7108D592A17D8A200C713A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7108D5C2A17D8A200C713A5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		E77BD3A42A2419280065480A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E77BD3A62A2421580065480A /* itemsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = itemsData.json; sourceTree = "<group>"; };
 		E7FFB5A22A23A2D3002F992E /* modelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,7 +40,6 @@
 			isa = PBXGroup;
 			children = (
 				E77BD3A62A2421580065480A /* itemsData.json */,
-				E77BD3A32A2419280065480A /* Model.xcdatamodeld */,
 				E7108D542A17D8A000C713A5 /* Shopping list */,
 				E7108D532A17D8A000C713A5 /* Products */,
 			);
@@ -150,7 +147,6 @@
 				E7108D582A17D8A000C713A5 /* ContentView.swift in Sources */,
 				E7108D562A17D8A000C713A5 /* Shopping_listApp.swift in Sources */,
 				E7FFB5A32A23A2D3002F992E /* modelData.swift in Sources */,
-				E77BD3A52A2419290065480A /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,19 +347,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		E77BD3A32A2419280065480A /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				E77BD3A42A2419280065480A /* Model.xcdatamodel */,
-			);
-			currentVersion = E77BD3A42A2419280065480A /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = E7108D4A2A17D8A000C713A5 /* Project object */;
 }
