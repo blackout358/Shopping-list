@@ -8,8 +8,6 @@ struct ContentView: View {
             ZStack {
                 Color.mint
                     .edgesIgnoringSafeArea(.all)
-                
-                
                 List{
                     ForEach(myItems.indices, id: \.self) { index in
                         Button(action: {
@@ -44,12 +42,9 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
+//                    Spacer()
                     Button(action: {
-                        #warning("pick up from here, make bin button delete all striked out items")
-//                        ForEach(myItems.indices, id: \.self) { index in
-//                            if myItems[index].isCompleted == true{
-//                                myItems.remove(at: index)
-//                            }
+                        myItems.removeAll(where: { $0.isCompleted})
                         
                     }) {
                         Label("Refresh", systemImage: "trash")
