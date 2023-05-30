@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var myItems = itemsList
+    @State var strikethrough = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -10,25 +11,27 @@ struct ContentView: View {
                 
                 
                 List{
-                    ForEach(itemsList, id: \.self) { itemName in
+                    ForEach(myItems.indices, id: \.self) { index in
                         Button(action: {
-                            itemsList.append(Items(item: "Hallo"))
-                            print("[pp[")
+                            myItems[index].isCompleted.toggle()
                         }, label: {
-                            Text("\(itemName.item)")
+                            Text("\(myItems[index].itemName)")
+                                .strikethrough(myItems[index].isCompleted, color: .pink)
                         })
 
                     } .onDelete(perform: delete)
                        }
-                
-                //                .padding()
+
             }
             .navigationBarTitle("Shopping list") // Set the title after the toolbar
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        print("Send button tapped")
+                        print(myItems)
+                        myItems.append(Items(itemName: "Hallo", isCompleted: false))
+                        print(myItems)
+                        writeJSON(items: myItems)
                     }) {
                         Label("Send", systemImage: "plus")
                     }
@@ -40,12 +43,26 @@ struct ContentView: View {
                         Label("Refresh", systemImage: "questionmark.circle")
                     }
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        #warning("pick up from here, make bin button delete all striked out items")
+//                        ForEach(myItems.indices, id: \.self) { index in
+//                            if myItems[index].isCompleted == true{
+//                                myItems.remove(at: index)
+//                            }
+                        
+                    }) {
+                        Label("Refresh", systemImage: "trash")
+                    }
+                }
             }
             .foregroundColor(.brown)
         }
     }
     func delete(at offsets: IndexSet) {
-        itemsList.remove(atOffsets: offsets)
+        myItems.remove(atOffsets: offsets)
+        writeJSON(items: myItems)
+        print(myItems)
     }
 }
 

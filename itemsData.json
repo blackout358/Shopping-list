@@ -1,28 +1,37 @@
 [{
-        "item": "Apple"
+        "itemName": "Apple",
+        "isCompleted": false
     },
     {
-        "item": "Orange"
+        "itemName": "Orange",
+        "isCompleted": false
     },
     {
-        "item": "Chicken"
+        "itemName": "Chicken",
+        "isCompleted": false
     },
     {
-        "item": "Marshmellow"
+        "itemName": "Marshmellow",
+        "isCompleted": false
     },
     {
-        "item": "Ice-Cream"
+        "itemName": "Ice-Cream",
+        "isCompleted": false
     },
     {
-        "item": "Tennis Ball"
+        "itemName": "Tennis Ball",
+        "isCompleted": false
     },
     {
-        "item": "Golf"
+        "itemName": "Golf",
+        "isCompleted": false
     },
     {
-        "item": "Chocolate"
+        "itemName": "Chocolate",
+        "isCompleted": false
     },
     {
-        "item": "Monster"
+        "itemName": "Monster",
+        "isCompleted": false
     },
 ]

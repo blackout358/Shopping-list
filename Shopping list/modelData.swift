@@ -2,7 +2,8 @@ import SwiftUI
 import Foundation
 
 struct Items: Codable, Hashable {
-    var item: String
+    var itemName: String
+    var isCompleted: Bool
 }
 
 
@@ -28,5 +29,17 @@ func load<T: Decodable>(_ filename: String) -> T {
         return try decoder.decode(T.self, from: data)
     } catch {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+    }
+}
+
+func writeJSON(items: [Items]) {
+    do {
+        let fileURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent("itemsData.json")
+
+        let encoder = JSONEncoder()
+        try encoder.encode(items).write(to: fileURL)
+    } catch {
+        print(error.localizedDescription)
     }
 }
