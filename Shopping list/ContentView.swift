@@ -9,15 +9,17 @@ struct ContentView: View {
                 Color.mint
                     .edgesIgnoringSafeArea(.all)
                 List{
-                    ForEach(myItems.indices, id: \.self) { index in
+                    ForEach(myItems, id: \.id) { item in
                         Button(action: {
-                            myItems[index].isCompleted.toggle()
+                            if let index = myItems.firstIndex(where: { $0.id == item.id }) {
+                                myItems[index].isCompleted.toggle()
+                            }
                         }, label: {
-                            Text("\(myItems[index].itemName)")
-                                .strikethrough(myItems[index].isCompleted, color: .pink)
+                            Text("\(item.itemName)")
+                                .strikethrough(item.isCompleted, color: .pink)
                         })
-
-                    } .onDelete(perform: delete)
+                    }
+                    .onDelete(perform: delete)
                        }
 
             }

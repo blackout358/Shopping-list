@@ -2,6 +2,7 @@ import SwiftUI
 import Foundation
 
 struct Items: Codable, Hashable {
+    let id = UUID()
     var itemName: String
     var isCompleted: Bool
 }
