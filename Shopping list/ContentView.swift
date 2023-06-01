@@ -3,11 +3,12 @@ import SwiftUI
 struct ContentView: View {
     @State var myItems = itemsList
     @State var strikethrough = false
+    @State var addText = ""
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.mint
-                    .edgesIgnoringSafeArea(.all)
+                Color.black
+                    .ignoresSafeArea()
                 List{
                     ForEach(myItems, id: \.id) { item in
                         Button(action: {
@@ -20,7 +21,10 @@ struct ContentView: View {
                         })
                     }
                     .onDelete(perform: delete)
-                       }
+//                    .listRowBackground(Color.clear)
+                }
+
+                .scrollContentBackground(.hidden)
 
             }
             .navigationBarTitle("Shopping list") // Set the title after the toolbar
@@ -32,10 +36,16 @@ struct ContentView: View {
                         myItems.append(Items(itemName: "Hallo", isCompleted: false))
                         print(myItems)
                         writeJSON(items: myItems)
+                        hideKeyboard()
                     }) {
                         Label("Send", systemImage: "plus")
                     }
                 }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        TextField("Add an item", text: $addText)
+                            .frame(minWidth: 300)
+                    }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         print("Refresh button tapped")
@@ -52,14 +62,40 @@ struct ContentView: View {
                         Label("Refresh", systemImage: "trash")
                     }
                 }
+                ToolbarItem(placement: .keyboard) {
+                    HStack{
+                        Button(action: {
+                            hideKeyboard()
+                        }) {
+                            Text("Done")
+                                .multilineTextAlignment(.leading)
+                        }
+                        Spacer()
+                    }
+                }
             }
             .foregroundColor(.brown)
         }
+        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+//        .onTapGesture {
+//            // Hide Keyboard
+//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//        }
+//        .gesture(
+//            DragGesture(minimumDistance: 0, coordinateSpace: .local).onEnded({ gesture in
+//                // Hide keyboard on swipe down
+//                if gesture.translation.height > 0 {
+//                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                }
+//            }))
     }
     func delete(at offsets: IndexSet) {
         myItems.remove(atOffsets: offsets)
         writeJSON(items: myItems)
         print(myItems)
+    }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
