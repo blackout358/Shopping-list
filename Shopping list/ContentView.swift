@@ -32,11 +32,9 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        print(myItems)
-                        myItems.append(Items(itemName: "Hallo", isCompleted: false))
-                        print(myItems)
-                        writeJSON(items: myItems)
+                        addItem()
                         hideKeyboard()
+                        addText = ""
                     }) {
                         Label("Send", systemImage: "plus")
                     }
@@ -77,17 +75,6 @@ struct ContentView: View {
             .foregroundColor(.brown)
         }
         .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
-//        .onTapGesture {
-//            // Hide Keyboard
-//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//        }
-//        .gesture(
-//            DragGesture(minimumDistance: 0, coordinateSpace: .local).onEnded({ gesture in
-//                // Hide keyboard on swipe down
-//                if gesture.translation.height > 0 {
-//                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//                }
-//            }))
     }
     func delete(at offsets: IndexSet) {
         myItems.remove(atOffsets: offsets)
@@ -96,6 +83,13 @@ struct ContentView: View {
     }
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    func addItem() {
+        if addText != "" {
+            myItems.append(Items(itemName: addText, isCompleted: false))
+            print(myItems)
+            writeJSON(items: myItems)
+        }
     }
 }
 
