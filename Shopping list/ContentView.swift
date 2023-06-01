@@ -47,6 +47,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         print("Refresh button tapped")
+
                     }) {
                         Label("Refresh", systemImage: "questionmark.circle")
                     }
