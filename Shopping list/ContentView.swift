@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    init() {
+        mainCopy()
+    }
+//    var itemsList: [Items] = loadFromJSON("itemsData.json")
     @State var myItems = itemsList
     @State var strikethrough = false
     @State var addText = ""
@@ -14,6 +18,7 @@ struct ContentView: View {
                         Button(action: {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
+                                writeJSON(items: myItems)
                             }
                         }, label: {
                             Text("\(item.itemName)")
@@ -56,6 +61,7 @@ struct ContentView: View {
 //                    Spacer()
                     Button(action: {
                         myItems.removeAll(where: { $0.isCompleted})
+                        writeJSON(items: myItems)
                         
                     }) {
                         Label("Refresh", systemImage: "trash")
@@ -75,8 +81,9 @@ struct ContentView: View {
             }
             .foregroundColor(.brown)
         }
-        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
     }
+//        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+//    }
     func delete(at offsets: IndexSet) {
         myItems.remove(atOffsets: offsets)
         writeJSON(items: myItems)
