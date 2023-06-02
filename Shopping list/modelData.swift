@@ -24,15 +24,7 @@ func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: St
             print("File already exists at destination. Doing nothing.")
             return
         }
-
-        do {
-            try fileManager.removeItem(at: destURL)
-            print("Removed existing file at destination")
-        } catch let error {
-            print("Error removing file at destination: \(error)")
-            return
-        }
-
+        
         do {
             try fileManager.copyItem(at: sourceURL, to: destURL)
             print("\(sourceFile) was copied successfully.")
@@ -42,34 +34,6 @@ func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: St
     }
 }
 
-
-//var itemsList: [Items] = load("itemsData.json")
-
-
-func loadFromJSON<T: Decodable>(_ filename: String) -> T {
-    let data: Data
-
-    guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-        fatalError("Couldn't access the documents directory.")
-    }
-    
-    let fileURL = documentsDirectory.appendingPathComponent(filename)
-
-    do {
-        mainCopy()
-        data = try Data(contentsOf: fileURL)
-    } catch {
-        mainCopy()
-        fatalError("Couldn't load \(filename) from the documents directory:\n\(error)")
-    }
-
-    do {
-        let decoder = JSONDecoder()
-        return try decoder.decode(T.self, from: data)
-    } catch {
-        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-    }
-}
 
 func writeJSON(items: [Items]) {
     do {
@@ -81,39 +45,25 @@ func writeJSON(items: [Items]) {
     } catch {
         print(error.localizedDescription)
     }
+}
+
+func listDocumentDirectoryFiles() {
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     
-    func saveJSONDataToFile(json: Data, fileName: String) {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        
-        if let documentsURL = documentsURL {
-            let fileURL = documentsURL.appendingPathComponent("itemData.json")
-            
-            do {
-                try json.write(to: fileURL, options: .atomicWrite)
-            } catch {
-                print(error)
+    if let url = documentsURL {
+        do {
+            let contents = try FileManager.default.contentsOfDirectory(atPath: url.path)
+            print("\(contents.count) files inside the document directory:")
+            for file in contents {
+                print(file)
             }
+        } catch {
+            print("Could not retrieve contents of the document directory.")
         }
     }
 }
-    func listDocumentDirectoryFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 
-        if let url = documentsURL {
-            do {
-                let contents = try FileManager.default.contentsOfDirectory(atPath: url.path)
-                print("\(contents.count) files inside the document directory:")
-                for file in contents {
-                    print(file)
-                }
-            } catch {
-                print("Could not retrieve contents of the document directory.")
-            }
-        }
-    }
-
-// Call the function to copy the file
-func mainCopy() {
+func copyJSON() {
     let sourceFile = "itemsData.json"
     let destinationFile = "newItemsData.json"
     
@@ -162,10 +112,10 @@ func checkAndLoadJSON<T: Decodable>(_ filename: String, sourceFile: String, dest
     let fileURL = documentsDirectory.appendingPathComponent(filename)
 
     do {
-        mainCopy()
+        copyJSON()
         data = try Data(contentsOf: fileURL)
     } catch {
-        mainCopy()
+        copyJSON()
         fatalError("Couldn't load \(filename) from the documents directory:\n\(error)")
     }
 

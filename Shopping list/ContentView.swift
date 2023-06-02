@@ -1,10 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    init() {
-        mainCopy()
-    }
-//    var itemsList: [Items] = loadFromJSON("itemsData.json")
     @State var myItems = itemsList
     @State var strikethrough = false
     @State var addText = ""
@@ -26,7 +22,6 @@ struct ContentView: View {
                         })
                     }
                     .onDelete(perform: delete)
-//                    .listRowBackground(Color.clear)
                 }
 
                 .scrollContentBackground(.hidden)
@@ -58,7 +53,6 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
-//                    Spacer()
                     Button(action: {
                         myItems.removeAll(where: { $0.isCompleted})
                         writeJSON(items: myItems)
