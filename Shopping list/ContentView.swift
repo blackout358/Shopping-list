@@ -42,6 +42,10 @@ struct ContentView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
                             .frame(minWidth: 300)
+                            .submitLabel(.done)
+                            .onSubmit {
+                                addItem()
+                            }
                     }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -91,6 +95,7 @@ struct ContentView: View {
             myItems.append(Items(itemName: addText, isCompleted: false))
             print(myItems)
             writeJSON(items: myItems)
+            addText = ""
         }
     }
 }
