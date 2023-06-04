@@ -1,9 +1,14 @@
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
     @State var myItems = itemsList
     @State var strikethrough = false
     @State var addText = ""
+    @State var editMode = false
+    @State var editText = ""
+    @State var editID: UUID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
+    @FocusState var isFocused: Bool
     var body: some View {
         NavigationStack {
             ZStack {
@@ -17,17 +22,46 @@ struct ContentView: View {
                                 writeJSON(items: myItems)
                             }
                         }) {
-                            Text("\(item.itemName)")
-                                .strikethrough(item.isCompleted, color: .pink)
+                            if let index = myItems.firstIndex(where: { $0.id == editID }) {
+                                if (editMode) {
+                                    TextField(myItems[index].itemName, text: $editText)
+                                        .focused($isFocused)
+                                        .frame(minWidth: 300)
+                                        .submitLabel(.done)
+                                        .onSubmit {
+                                            myItems[index].itemName = editText
+                                            editText = ""
+                                            editMode.toggle()
+                                            isFocused.toggle()
+                                        }
+                                }
+                                else {
+                                    Text("\(item.itemName)")
+                                        .strikethrough(item.isCompleted, color: .pink)
+                                }
+                            }
+                            else {
+                                Text("\(item.itemName)")
+                                    .strikethrough(item.isCompleted, color: .pink)
+                            }
                         }
                         .swipeActions(edge: .leading) {
                             Button(action: {
 //                                myItems.append(Items(itemName: "Edit Button Added This", isCompleted: false))
 //                                print(myItems)
 //                                writeJSON(items: myItems)
-                                print("Edit")
+                                editMode.toggle()
+                                isFocused.toggle()
+//                                print("Edit")
+                                print(item.id)
+                                if (editMode) {
+                                    editID = item.id
+                                }
+                                else {
+                                    editID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
+                                }
                             }) {
-                                Label("Delete", systemImage: "square.and.pencil")
+                                Label("Edit", systemImage: "square.and.pencil")
                             }
                         }
                     }
