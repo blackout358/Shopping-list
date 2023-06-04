@@ -9,19 +9,30 @@ struct ContentView: View {
             ZStack {
                 Color.black
                     .ignoresSafeArea()
-                List{
+                List {
                     ForEach(myItems, id: \.id) { item in
                         Button(action: {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
                                 writeJSON(items: myItems)
                             }
-                        }, label: {
+                        }) {
                             Text("\(item.itemName)")
                                 .strikethrough(item.isCompleted, color: .pink)
-                        })
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button(action: {
+//                                myItems.append(Items(itemName: "Edit Button Added This", isCompleted: false))
+//                                print(myItems)
+//                                writeJSON(items: myItems)
+                                print("Edit")
+                            }) {
+                                Label("Delete", systemImage: "square.and.pencil")
+                            }
+                        }
                     }
                     .onDelete(perform: delete)
+                    .onMove(perform: onMove)
                 }
 
                 .scrollContentBackground(.hidden)
@@ -87,6 +98,9 @@ struct ContentView: View {
         writeJSON(items: myItems)
         print(myItems)
     }
+    func onMove(source: IndexSet, destination: Int) {
+            myItems.move(fromOffsets: source, toOffset: destination)
+        }
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
