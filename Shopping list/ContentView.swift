@@ -15,7 +15,7 @@ struct ContentView: View {
                 Color.black
                     .ignoresSafeArea()
                 List {
-                    ForEach(myItems, id: \.id) { item in
+                    ForEach(myItems.sorted(by: { !$0.isCompleted && $1.isCompleted}) , id: \.id) { item in
                         Button(action: {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
@@ -23,7 +23,7 @@ struct ContentView: View {
                             }
                         }) {
                             if let index = myItems.firstIndex(where: { $0.id == editID }) {
-                                if (editMode) {
+                                if (editMode && editID == item.id) {
                                     TextField(myItems[index].itemName, text: $editText)
                                         .focused($isFocused)
                                         .frame(minWidth: 300)
@@ -96,7 +96,14 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         print("Refresh button tapped")
-
+                        myItems.append(Items(itemName: "Egg", isCompleted: false))
+                        myItems.append(Items(itemName: "Apple", isCompleted: false))
+                        myItems.append(Items(itemName: "Orange", isCompleted: false))
+                        myItems.append(Items(itemName: "Milk", isCompleted: false))
+                        myItems.append(Items(itemName: "Sugar", isCompleted: false))
+                        myItems.append(Items(itemName: "Bread", isCompleted: false))
+                        writeJSON(items: myItems)
+                        
                     }) {
                         Label("Refresh", systemImage: "questionmark.circle")
                     }
