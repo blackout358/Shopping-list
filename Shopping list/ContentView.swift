@@ -120,8 +120,8 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    Toggle("Test", isOn: $darkMode)
-                        .toggleStyle(.button)
+                    Toggle("", isOn: $darkMode)
+                        .toggleStyle(SwitchToggleStyle(tint: .red))
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack{
