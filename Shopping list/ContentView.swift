@@ -8,7 +8,7 @@ struct ContentView: View {
     @State var editMode = false
     @State var editText = ""
     @State var editID: UUID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
-    @State var darkMode:Bool = false
+    @AppStorage("darkMode") var darkMode:Bool = true
     @FocusState var isFocused: Bool
     var body: some View {
         NavigationStack {
@@ -17,11 +17,13 @@ struct ContentView: View {
                     Color.black
                         .ignoresSafeArea()
                         .preferredColorScheme(.dark)
+//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
                 }
                 else {
                     Color.white
                         .ignoresSafeArea()
                         .preferredColorScheme(.light)
+//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
                 }
                 List {
                     // if striked out is moved to none striked out, move item up and down function is broken
@@ -122,6 +124,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Toggle("", isOn: $darkMode)
                         .toggleStyle(SwitchToggleStyle(tint: .red))
+//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack{
