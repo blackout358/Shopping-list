@@ -127,3 +127,9 @@ func checkAndLoadJSON<T: Decodable>(_ filename: String, sourceFile: String, dest
     }
 }
 
+/*
+ For use for later
+ ToolbarItem(placement: .bottomBar) {
+ Toggle("", isOn: $darkMode)
+     .toggleStyle(SwitchToggleStyle(tint: .red))
+}*/

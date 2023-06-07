@@ -8,7 +8,7 @@ struct ContentView: View {
     @State var editMode = false
     @State var editText = ""
     @State var editID: UUID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
-    @AppStorage("darkMode") var darkMode:Bool = true
+    @AppStorage("darkMode") var darkMode:Bool = false
     @FocusState var isFocused: Bool
     var body: some View {
         NavigationStack {
@@ -17,17 +17,17 @@ struct ContentView: View {
 //                    Color.black
 //                        .ignoresSafeArea()
 //                        .preferredColorScheme(.dark)
-////                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
 //                }
 //                else {
 //                    Color.white
 //                        .ignoresSafeArea()
 //                        .preferredColorScheme(.light)
-////                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
 //                }
                 List {
-                    // if striked out is moved to none striked out, move item up and down function is broken
-                    // until the trash can is pressed to clear striked out items
+                    /*
+                     If striked out is moved to none striked out, move item up and down
+                     function is broken until the trash can is pressed to clear striked out items
+                    */
                     ForEach(myItems.sorted(by: { !$0.isCompleted && $1.isCompleted}) , id: \.id) { item in
                         Button(action: {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
@@ -44,9 +44,14 @@ struct ContentView: View {
                                         .onSubmit {
                                             myItems[index].itemName = editText
                                             editText = ""
-                                            editMode.toggle()
+                                            editMode = false
+                                            editID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
                                             isFocused.toggle()
                                         }
+                                }
+                                else {
+                                    Text("\(item.itemName)")
+                                        .strikethrough(item.isCompleted, color: .gray)
                                 }
                             }
                             else {
@@ -89,7 +94,7 @@ struct ContentView: View {
                     }
                 }
                     ToolbarItem(placement: .navigationBarLeading) {
-                        TextField("Add an item", text: $addText)
+                        TextField(String(editMode), text: $addText)
                             .frame(minWidth: 300)
                             .submitLabel(.done)
                             .onSubmit {
@@ -124,7 +129,6 @@ struct ContentView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Toggle("", isOn: $darkMode)
                         .toggleStyle(SwitchToggleStyle(tint: .red))
-//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack{
