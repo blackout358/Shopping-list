@@ -10,6 +10,7 @@ struct mainPage: View {
     @State var editID: UUID = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
     @AppStorage("darkMode") var darkMode:Bool = false
     @FocusState var isFocused: Bool
+    @State var showingSheet = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -95,7 +96,9 @@ struct mainPage: View {
                 }
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
-                            .frame(minWidth: 300)
+                            .frame(maxWidth: 300)
+                            .foregroundColor(.pink)
+                            .background(Color.blue)
                             .submitLabel(.done)
                             .onSubmit {
                                 addItem()
@@ -130,6 +133,21 @@ struct mainPage: View {
                     Toggle("", isOn: $darkMode)
                         .toggleStyle(SwitchToggleStyle(tint: .red))
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        showingSheet.toggle()
+                    }) {
+                        Label("Settings", systemImage: "gearshape")
+                    }
+            
+//                    NavigationLink {
+//                        SettingsPage()
+//                        showingSheet.toggle()
+//                        showingSheet = true
+//                    } label: {
+//                        Label("Settings", systemImage: "gearshape")
+//                    }
+                }
                 ToolbarItem(placement: .keyboard) {
                     HStack{
                         Button(action: {
@@ -143,6 +161,9 @@ struct mainPage: View {
                 }
             }
             .foregroundColor(.brown)
+            .sheet(isPresented: $showingSheet) {
+                SettingsPage()
+            }
         }
     }
 //        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
