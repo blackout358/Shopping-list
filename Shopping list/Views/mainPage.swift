@@ -1,7 +1,7 @@
 import SwiftUI
 import Foundation
 
-struct ContentView: View {
+struct mainPage: View {
     @State var myItems = itemsList
     @State var strikethrough = false
     @State var addText = ""
@@ -13,16 +13,16 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-//                if (darkMode) {
-//                    Color.black
-//                        .ignoresSafeArea()
-//                        .preferredColorScheme(.dark)
-//                }
-//                else {
-//                    Color.white
-//                        .ignoresSafeArea()
-//                        .preferredColorScheme(.light)
-//                }
+                if (darkMode) {
+                    Color.black
+                        .ignoresSafeArea()
+                        .preferredColorScheme(.dark)
+                }
+                else {
+                    Color.white
+                        .ignoresSafeArea()
+                        .preferredColorScheme(.light)
+                }
                 List {
                     /*
                      If striked out is moved to none striked out, move item up and down
@@ -94,7 +94,7 @@ struct ContentView: View {
                     }
                 }
                     ToolbarItem(placement: .navigationBarLeading) {
-                        TextField(String(editMode), text: $addText)
+                        TextField("Add an item", text: $addText)
                             .frame(minWidth: 300)
                             .submitLabel(.done)
                             .onSubmit {
@@ -170,6 +170,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        mainPage()
     }
 }

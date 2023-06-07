@@ -4,7 +4,7 @@ import SwiftUI
 struct Shopping_listApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            mainPage()
         }
     }
 }
