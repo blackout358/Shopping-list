@@ -13,18 +13,18 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                if (darkMode) {
-                    Color.black
-                        .ignoresSafeArea()
-                        .preferredColorScheme(.dark)
-//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
-                }
-                else {
-                    Color.white
-                        .ignoresSafeArea()
-                        .preferredColorScheme(.light)
-//                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
-                }
+//                if (darkMode) {
+//                    Color.black
+//                        .ignoresSafeArea()
+//                        .preferredColorScheme(.dark)
+////                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
+//                }
+//                else {
+//                    Color.white
+//                        .ignoresSafeArea()
+//                        .preferredColorScheme(.light)
+////                    UserDefaults.standard.set($darkMode, forKey: "darkMode")
+//                }
                 List {
                     // if striked out is moved to none striked out, move item up and down function is broken
                     // until the trash can is pressed to clear striked out items
