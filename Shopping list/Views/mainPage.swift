@@ -96,9 +96,11 @@ struct mainPage: View {
                 }
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
-                            .frame(maxWidth: 300)
+//                        TextField(String(showingSheet), text: $addText)
+                            .frame(maxWidth: 400)
+                            .fixedSize()
                             .foregroundColor(.pink)
-                            .background(Color.blue)
+//                            .background(Color.blue)
                             .submitLabel(.done)
                             .onSubmit {
                                 addItem()
@@ -129,24 +131,16 @@ struct mainPage: View {
                         Label("Trash", systemImage: "trash")
                     }
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    Toggle("", isOn: $darkMode)
-                        .toggleStyle(SwitchToggleStyle(tint: .red))
-                }
+//                ToolbarItem(placement: .bottomBar) {
+//                    Toggle("", isOn: $darkMode)
+//                        .toggleStyle(SwitchToggleStyle(tint: .red))
+//                }
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         showingSheet.toggle()
                     }) {
                         Label("Settings", systemImage: "gearshape")
                     }
-            
-//                    NavigationLink {
-//                        SettingsPage()
-//                        showingSheet.toggle()
-//                        showingSheet = true
-//                    } label: {
-//                        Label("Settings", systemImage: "gearshape")
-//                    }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack{
@@ -162,7 +156,8 @@ struct mainPage: View {
             }
             .foregroundColor(.brown)
             .sheet(isPresented: $showingSheet) {
-                SettingsPage()
+                SettingsPage(darkMode: $darkMode)
+                
             }
         }
     }
