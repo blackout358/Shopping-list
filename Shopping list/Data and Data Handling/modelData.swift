@@ -125,10 +125,3 @@ func checkAndLoadJSON<T: Decodable>(_ filename: String, sourceFile: String, dest
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
 }
-
-/*
- For use for later
- ToolbarItem(placement: .bottomBar) {
- Toggle("", isOn: $darkMode)
-     .toggleStyle(SwitchToggleStyle(tint: .red))
-}*/

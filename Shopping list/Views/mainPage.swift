@@ -3,6 +3,7 @@ import Foundation
 
 struct mainPage: View {
     @State var myItems = itemsList
+//    @State var quickItems = defaultItemList
     @State var strikethrough = false
     @State var addText = ""
     @State var editMode = false
@@ -36,6 +37,7 @@ struct mainPage: View {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
                                 writeJSON(items: myItems, destinationFile: "itemsData.json")
+                                listDocumentDirectoryFiles()
                             }
                         }) {
                             if let index = myItems.firstIndex(where: { $0.id == editID }) {
@@ -140,6 +142,7 @@ struct mainPage: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         showingSheet.toggle()
+                        print(defaultItemList)
                     }) {
                         Label("Settings", systemImage: "gearshape")
                     }
@@ -159,7 +162,6 @@ struct mainPage: View {
             .foregroundColor(.brown)
             .sheet(isPresented: $showingSheet) {
                 SettingsPage(darkMode: $darkMode)
-                
             }
         }
     }
