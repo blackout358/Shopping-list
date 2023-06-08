@@ -28,6 +28,8 @@ struct mainPage: View {
                     /*
                      If striked out is moved to none striked out, move item up and down
                      function is broken until the trash can is pressed to clear striked out items
+                     
+                     If item is striked out, then rearrange doesnt work until nothing is striked out
                     */
                     ForEach(myItems.sorted(by: { !$0.isCompleted && $1.isCompleted}) , id: \.id) { item in
                         Button(action: {
@@ -97,8 +99,8 @@ struct mainPage: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
 //                        TextField(String(showingSheet), text: $addText)
-                            .frame(maxWidth: 400)
-                            .fixedSize()
+                            .frame(minWidth: 300)
+//                            .fixedSize()
                             .foregroundColor(.pink)
 //                            .background(Color.blue)
                             .submitLabel(.done)
