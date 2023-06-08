@@ -14,6 +14,7 @@
 		E770FB9F2A30B38900E57661 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E770FB9E2A30B38900E57661 /* SettingsPage.swift */; };
 		E770FBA32A31D07B00E57661 /* defaultItemCustomisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E770FBA22A31D07B00E57661 /* defaultItemCustomisation.swift */; };
 		E77BD3A72A2421590065480A /* itemsData.json in Resources */ = {isa = PBXBuildFile; fileRef = E77BD3A62A2421580065480A /* itemsData.json */; };
+		E78829012A31D5AC003F208F /* quickAddItems.json in Resources */ = {isa = PBXBuildFile; fileRef = E78829002A31D5AB003F208F /* quickAddItems.json */; };
 		E7FFB5A32A23A2D3002F992E /* modelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FFB5A22A23A2D3002F992E /* modelData.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		E770FB9E2A30B38900E57661 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		E770FBA22A31D07B00E57661 /* defaultItemCustomisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultItemCustomisation.swift; sourceTree = "<group>"; };
 		E77BD3A62A2421580065480A /* itemsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = itemsData.json; sourceTree = "<group>"; };
+		E78829002A31D5AB003F208F /* quickAddItems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quickAddItems.json; sourceTree = "<group>"; };
 		E7FFB5A22A23A2D3002F992E /* modelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 			children = (
 				E7FFB5A22A23A2D3002F992E /* modelData.swift */,
 				E77BD3A62A2421580065480A /* itemsData.json */,
+				E78829002A31D5AB003F208F /* quickAddItems.json */,
 			);
 			path = "Data and Data Handling";
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			files = (
 				E77BD3A72A2421590065480A /* itemsData.json in Resources */,
 				E7108D5D2A17D8A200C713A5 /* Preview Assets.xcassets in Resources */,
+				E78829012A31D5AC003F208F /* quickAddItems.json in Resources */,
 				E7108D5A2A17D8A200C713A5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

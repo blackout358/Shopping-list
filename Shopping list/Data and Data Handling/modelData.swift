@@ -10,6 +10,7 @@ struct Items: Codable, Hashable {
 
 //var itemsList: [Items] = loadFromJSON("itemsData.json")
 var itemsList: [Items] = checkAndLoadJSON("itemsData.json", sourceFile: "itemsData.json", destinationFile: "itemsData.json")
+var defaultItemList: [Items] = checkAndLoadJSON("quickAddItems.json", sourceFile: "quickAddItems.json", destinationFile: "quickAddItems.json")
 
 
 func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: String) {
@@ -17,7 +18,7 @@ func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: St
     let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
 
     if let documentsURL = documentsURL {
-        let sourceURL = Bundle.main.bundleURL.appendingPathComponent("itemsData.json")
+        let sourceURL = Bundle.main.bundleURL.appendingPathComponent(sourceFile)
         let destURL = documentsURL.appendingPathComponent(!destinationFile.isEmpty ? destinationFile : sourceFile)
 
         if fileManager.fileExists(atPath: destURL.path) {
@@ -35,10 +36,10 @@ func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: St
 }
 
 
-func writeJSON(items: [Items]) {
+func writeJSON(items: [Items], destinationFile: String) {
     do {
         let fileURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent("itemsData.json")
+            .appendingPathComponent(destinationFile)
         
         let encoder = JSONEncoder()
         try encoder.encode(items).write(to: fileURL)
@@ -63,9 +64,7 @@ func listDocumentDirectoryFiles() {
     }
 }
 
-func copyJSON() {
-    let sourceFile = "itemsData.json"
-    let destinationFile = "newItemsData.json"
+func copyJSON(sourceFile: String, destinationFile: String) {
     
     copyFileFromBundleToDocumentsFolder(sourceFile: sourceFile, destinationFile: destinationFile)
     print("WE chilling now")
@@ -82,7 +81,7 @@ func checkAndLoadJSON<T: Decodable>(_ filename: String, sourceFile: String, dest
     let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
     
     if let documentsURL = documentsURL {
-        let sourceURL = Bundle.main.bundleURL.appendingPathComponent("itemsData.json")
+        let sourceURL = Bundle.main.bundleURL.appendingPathComponent(sourceFile)
         let destURL = documentsURL.appendingPathComponent(!destinationFile.isEmpty ? destinationFile : sourceFile)
         
         if fileManager.fileExists(atPath: destURL.path) {
@@ -112,10 +111,10 @@ func checkAndLoadJSON<T: Decodable>(_ filename: String, sourceFile: String, dest
     let fileURL = documentsDirectory.appendingPathComponent(filename)
 
     do {
-        copyJSON()
+        copyJSON(sourceFile: sourceFile, destinationFile: destinationFile)
         data = try Data(contentsOf: fileURL)
     } catch {
-        copyJSON()
+        copyJSON(sourceFile: sourceFile, destinationFile: destinationFile)
         fatalError("Couldn't load \(filename) from the documents directory:\n\(error)")
     }
 

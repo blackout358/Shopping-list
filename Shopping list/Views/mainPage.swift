@@ -35,7 +35,7 @@ struct mainPage: View {
                         Button(action: {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
-                                writeJSON(items: myItems)
+                                writeJSON(items: myItems, destinationFile: "itemsData.json")
                             }
                         }) {
                             if let index = myItems.firstIndex(where: { $0.id == editID }) {
@@ -118,7 +118,7 @@ struct mainPage: View {
                         myItems.append(Items(itemName: "Milk", isCompleted: false))
                         myItems.append(Items(itemName: "Sugar", isCompleted: false))
                         myItems.append(Items(itemName: "Bread", isCompleted: false))
-                        writeJSON(items: myItems)
+                        writeJSON(items: myItems, destinationFile: "itemsData.json")
                         
                     }) {
                         Label("Refresh", systemImage: "questionmark.circle")
@@ -127,7 +127,7 @@ struct mainPage: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         myItems.removeAll(where: { $0.isCompleted})
-                        writeJSON(items: myItems)
+                        writeJSON(items: myItems, destinationFile: "itemsData.json")
 
                     }) {
                         Label("Trash", systemImage: "trash")
@@ -167,7 +167,7 @@ struct mainPage: View {
 //    }
     func delete(at offsets: IndexSet) {
         myItems.remove(atOffsets: offsets)
-        writeJSON(items: myItems)
+        writeJSON(items: myItems, destinationFile: "itemsData.json")
         print(myItems)
     }
     func onMove(source: IndexSet, destination: Int) {
@@ -180,7 +180,7 @@ struct mainPage: View {
         if addText != "" {
             myItems.append(Items(itemName: addText, isCompleted: false))
             print(myItems)
-            writeJSON(items: myItems)
+            writeJSON(items: myItems, destinationFile: "itemsData.json")
             addText = ""
         }
     }

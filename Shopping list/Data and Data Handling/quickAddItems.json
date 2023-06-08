@@ -1,0 +1,17 @@
+[{
+		"itemName": "Milk",
+		"isCompleted": false
+	},
+	{
+		"itemName": "Bread",
+		"isCompleted": false
+	},
+	{
+		"itemName": "Eggs",
+		"isCompleted": false
+	},
+	{
+		"itemName": "Lettuce",
+		"isCompleted": false
+	}
+]
