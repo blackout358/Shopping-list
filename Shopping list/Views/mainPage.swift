@@ -100,11 +100,8 @@ struct mainPage: View {
                 }
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
-//                        TextField(String(showingSheet), text: $addText)
                             .frame(minWidth: 300)
-//                            .fixedSize()
                             .foregroundColor(.pink)
-//                            .background(Color.blue)
                             .submitLabel(.done)
                             .onSubmit {
                                 addItem()

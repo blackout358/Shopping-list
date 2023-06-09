@@ -64,18 +64,29 @@ struct defaultItemCustomisation: View {
                     }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                TextField("Add an item", text: $addText)
+                    .padding(6)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 150, height: 30)
+                    .foregroundColor(.pink)
+                    .background(Color.gray .opacity(0.2))
+                    .cornerRadius(5)
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 14)
+//                                .stroke(Color.green, lineWidth: 2)
+//                            )
+                    .submitLabel(.done)
+                    .onSubmit {
+                        addItem()
+                    }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    print("Refresh button tapped")
-                    myItems.append(Items(itemName: "Egg", isCompleted: false))
-                    myItems.append(Items(itemName: "Apple", isCompleted: false))
-                    myItems.append(Items(itemName: "Orange", isCompleted: false))
-                    myItems.append(Items(itemName: "Milk", isCompleted: false))
-                    myItems.append(Items(itemName: "Sugar", isCompleted: false))
-                    myItems.append(Items(itemName: "Bread", isCompleted: false))
-                    writeJSON(items: myItems, destinationFile: "quickAddItems.json")
-                    
+                    addItem()
+                    hideKeyboard()
+                    addText = ""
                 }) {
-                    Label("Refresh", systemImage: "questionmark.circle")
+                    Label("Send", systemImage: "plus")
                 }
             }
         }
