@@ -86,7 +86,7 @@ struct mainPage: View {
                 }
                 .scrollContentBackground(.hidden)
             }
-            .navigationBarTitle("Shopping list") // Set the title after the toolbar
+            .navigationBarTitle("Shopping list")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -101,7 +101,7 @@ struct mainPage: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         TextField("Add an item", text: $addText)
                             .padding(6)
-                            .frame(width: 200, height: 30)
+                            .frame(width: 150, height: 30)
                             .foregroundColor(.pink)
                             .background(Color.gray .opacity(0.2))
                             .cornerRadius(5)
@@ -110,6 +110,7 @@ struct mainPage: View {
                                 addItem()
                             }
                     }
+//                    .padding(12)
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -118,7 +119,7 @@ struct mainPage: View {
                         writeJSON(items: myItems, destinationFile: "itemsData.json")
                         
                     }) {
-                        Label("Refresh", systemImage: "questionmark.circle")
+                        Label("Add quick add", systemImage: "arrow.counterclockwise")
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
@@ -130,10 +131,6 @@ struct mainPage: View {
                         Label("Trash", systemImage: "trash")
                     }
                 }
-//                ToolbarItem(placement: .bottomBar) {
-//                    Toggle("", isOn: $darkMode)
-//                        .toggleStyle(SwitchToggleStyle(tint: .red))
-//                }
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         showingSheet.toggle()
@@ -154,7 +151,6 @@ struct mainPage: View {
                     }
                 }
             }
-            .foregroundColor(.brown)
             .sheet(isPresented: $showingSheet) {
                 SettingsPage(darkMode: $darkMode)
             }

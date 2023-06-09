@@ -13,10 +13,7 @@ struct defaultItemCustomisation: View {
                     List {
                         ForEach($myItems, id: \.id) { $item in
                             Button(action: {
-                                if let index = myItems.firstIndex(where: { $0.id == item.id }) {
-                                    myItems[index].isCompleted.toggle()
-                                    writeJSON(items: myItems, destinationFile: "quickAddItems.json")
-                                }
+                                
                             }) {
                                 if let index = myItems.firstIndex(where: { $0.id == editID }) {
                                     if (editMode && editID == item.id) {
