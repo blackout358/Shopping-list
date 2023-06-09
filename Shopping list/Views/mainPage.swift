@@ -110,13 +110,8 @@ struct mainPage: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("Refresh button tapped")
-                        myItems.append(Items(itemName: "Egg", isCompleted: false))
-                        myItems.append(Items(itemName: "Apple", isCompleted: false))
-                        myItems.append(Items(itemName: "Orange", isCompleted: false))
-                        myItems.append(Items(itemName: "Milk", isCompleted: false))
-                        myItems.append(Items(itemName: "Sugar", isCompleted: false))
-                        myItems.append(Items(itemName: "Bread", isCompleted: false))
+                    defaultItemList = checkAndLoadJSON("quickAddItems.json", sourceFile: "quickAddItems.json", destinationFile: "quickAddItems.json")
+                        myItems.append(contentsOf: defaultItemList)
                         writeJSON(items: myItems, destinationFile: "itemsData.json")
                         
                     }) {
