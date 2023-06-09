@@ -160,7 +160,7 @@ struct mainPage: View {
             .sheet(isPresented: $showingSheet) {
                 SettingsPage(darkMode: $darkMode)
             }
-        }
+        }.tint(.brown)
     }
 //        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
 //    }

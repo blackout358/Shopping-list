@@ -66,15 +66,10 @@ struct defaultItemCustomisation: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 TextField("Add an item", text: $addText)
                     .padding(6)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 150, height: 30)
                     .foregroundColor(.pink)
                     .background(Color.gray .opacity(0.2))
                     .cornerRadius(5)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 14)
-//                                .stroke(Color.green, lineWidth: 2)
-//                            )
                     .submitLabel(.done)
                     .onSubmit {
                         addItem()
@@ -90,6 +85,7 @@ struct defaultItemCustomisation: View {
                 }
             }
         }
+        .tint(.brown)
         .onAppear(perform: loadData)
     }
     func delete(at offsets: IndexSet) {
