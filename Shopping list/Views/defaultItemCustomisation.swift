@@ -71,7 +71,7 @@ struct defaultItemCustomisation: View {
                     .onSubmit {
                         addItem()
                     }
-            }
+            }//hh
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     addItem()
