@@ -21,8 +21,18 @@ struct SettingsPage: View {
                     NavigationLink(destination: defaultItemCustomisation()) {
                         Text("Quick add items")
                     }
+                    Button(action: {
+                        itemsList.removeAll()
+                        defaultItemList.removeAll()
+                        clearAll.toggle()
+                        writeJSON(items: itemsList, destinationFile: "itemsData.json")
+                        writeJSON(items: defaultItemList, destinationFile: "quickAddItems.json")
+                        itemsList = loadJSON("itemsData.json")
+                    }) {
+                        Text("Reset")
+                            .foregroundColor(.red)
+                    }
                 }
-                
             }
             .navigationBarTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

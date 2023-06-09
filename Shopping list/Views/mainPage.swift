@@ -15,16 +15,10 @@ struct mainPage: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                if (darkMode) {
-                    Color.black
-                        .ignoresSafeArea()
-                        .preferredColorScheme(.dark)
-                }
-                else {
-                    Color.white
-                        .ignoresSafeArea()
-                        .preferredColorScheme(.light)
-                }
+                darkMode ?
+                Color.black .ignoresSafeArea() .preferredColorScheme(.dark) :
+                Color.white .ignoresSafeArea() .preferredColorScheme(.light)
+                
                 List {
                     /*
                      If striked out is moved to none striked out, move item up and down
@@ -37,7 +31,7 @@ struct mainPage: View {
                             if let index = myItems.firstIndex(where: { $0.id == item.id }) {
                                 myItems[index].isCompleted.toggle()
                                 writeJSON(items: myItems, destinationFile: "itemsData.json")
-                                listDocumentDirectoryFiles()
+                                print(itemsList)
                             }
                         }) {
                             if let index = myItems.firstIndex(where: { $0.id == editID }) {
@@ -54,14 +48,24 @@ struct mainPage: View {
                                             isFocused.toggle()
                                         }
                                 }
-                                else {
+                                else if (item.isCompleted) {
                                     Text("\(item.itemName)")
                                         .strikethrough(item.isCompleted, color: .gray)
+                                        .foregroundColor(.gray)
                                 }
+                                else {
+                                    Text("\(item.itemName)")
+                                        .foregroundColor(darkMode == true ? .white : .black)
+                                }
+                            }
+                            else if (item.isCompleted) {
+                                Text("\(item.itemName)")
+                                    .strikethrough(item.isCompleted, color: .gray)
+//                                    .foregroundColor(.gray)
                             }
                             else {
                                 Text("\(item.itemName)")
-                                    .strikethrough(item.isCompleted, color: .gray)
+                                    .foregroundColor(darkMode == true ? .white : .black)
                             }
                         }
                         .listRowBackground(darkMode ? nil : Color.gray .opacity(0.2))
@@ -134,7 +138,7 @@ struct mainPage: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         showingSheet.toggle()
-                        print(defaultItemList)
+//                        loadData()
                     }) {
                         Label("Settings", systemImage: "gearshape")
                     }
@@ -154,7 +158,10 @@ struct mainPage: View {
             .sheet(isPresented: $showingSheet) {
                 SettingsPage(darkMode: $darkMode)
             }
-        }.tint(.brown)
+            
+        }
+        .tint(.brown)
+        .onAppear(perform: loadData)
     }
 //        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
 //    }
@@ -176,6 +183,10 @@ struct mainPage: View {
             writeJSON(items: myItems, destinationFile: "itemsData.json")
             addText = ""
         }
+    }
+    func loadData() {
+//    itemsList = checkAndLoadJSON("itemsData.json", sourceFile: "itemsData.json", destinationFile: "itemsData.json")
+        print("POOP")
     }
 }
 

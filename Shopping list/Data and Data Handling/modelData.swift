@@ -7,6 +7,7 @@ struct Items: Codable, Hashable {
     var isCompleted: Bool
 }
 
+var clearAll = false
 
 //var itemsList: [Items] = loadFromJSON("itemsData.json")
 var itemsList: [Items] = checkAndLoadJSON("itemsData.json", sourceFile: "itemsData.json", destinationFile: "itemsData.json")
@@ -35,6 +36,28 @@ func copyFileFromBundleToDocumentsFolder(sourceFile: String, destinationFile: St
     }
 }
 
+func loadJSON<T: Decodable>(_ filename: String) -> T {
+    let data: Data
+
+    guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        fatalError("Couldn't access the documents directory.")
+    }
+    
+    let fileURL = documentsDirectory.appendingPathComponent(filename)
+
+    do {
+        data = try Data(contentsOf: fileURL)
+    } catch {
+        fatalError("Couldn't load \(filename) from the documents directory:\n\(error)")
+    }
+
+    do {
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    } catch {
+        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+    }
+}
 
 func writeJSON(items: [Items], destinationFile: String) {
     do {
